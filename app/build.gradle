@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.example.db"
+        minSdkVersion 16
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+//greendao配置
+greendao {
+    schemaVersion 2                             //版本号，升级时可配置
+    daoPackage'com.example.db.dao'     //包名
+    targetGenDir'src/main/java'                 //生成目录
+}
+
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    //万能适配器
+//    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.49-androidx'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.6'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    implementation 'org.greenrobot:greendao:3.3.0'
+    implementation 'net.zetetic:android-database-sqlcipher:3.5.4'
+    //日志
+    implementation 'com.github.zhaokaiqiang.klog:library:1.5.0'
+}

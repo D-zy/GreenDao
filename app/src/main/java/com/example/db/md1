@@ -1,0 +1,45 @@
+我们先讲下 QueryBuilder 的常见方法：
+
+where(WhereCondition cond, WhereCondition… condMore): 查询条件，参数为查询的条件！
+
+or(WhereCondition cond1, WhereCondition cond2, WhereCondition… condMore): 嵌套条件或者，用法同 or。
+
+and(WhereCondition cond1, WhereCondition cond2, WhereCondition… condMore): 嵌套条件且，用法同 and。
+
+join(Property sourceProperty, Class destinationEntityClass):多表查询，后面会讲。
+
+输出结果有四种方式，选择其中一种最适合的即可，list()返回值是 List,而其他三种返回值均实现 Closeable,需要注意的不使用数据时游标的关闭操作：
+
+list （）所有实体都加载到内存中。结果通常是一个没有魔法的 ArrayList。最容易使用。
+
+listLazy （）实体按需加载到内存中。首次访问列表中的元素后，将加载并缓存该元素以供将来使用。必须关闭。
+
+listLazyUncached （）实体的“虚拟”列表：对列表元素的任何访问都会导致从数据库加载其数据。必须关闭。
+
+listIterator （）让我们通过按需加载数据（懒惰）来迭代结果。数据未缓存。必须关闭。
+
+GreenDao 中 SQL 语句的缩写，我们也了解下，源码在Property中,使用的时候可以自己点进去查询即可：
+
+eq()：“equal (’=?’)” 等于；
+
+notEq() ：“not equal (’<>?’)” 不等于；
+
+like()：" LIKE ?" 值等于；
+
+between()：" BETWEEN ? AND ?" 取中间范围；
+
+in()：" IN (" in命令;
+
+notIn()：" NOT IN (" not in 命令;
+
+gt()：">?" 大于;
+
+lt()："<? " 小于;
+
+ge()：">=?" 大于等于;
+
+le()："<=? " 小于等于;
+
+isNull()：" IS NULL" 为空;
+
+isNotNull()：" IS NOT NULL" 不为空;
