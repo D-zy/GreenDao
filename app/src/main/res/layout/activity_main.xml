@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ui.MainActivity">
 
     <LinearLayout
         android:id="@+id/ll_title"
@@ -113,13 +114,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="部分删除" />
+        android:text="删(部分)" />
 
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/flowLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="bt_insert,bt_delete,bt_update,bt_query,bt_deleteBatch"
+        app:constraint_referenced_ids="bt_insert,bt_update,bt_query,bt_deleteBatch,bt_delete"
         app:flow_maxElementsWrap="4"
         app:flow_wrapMode="aligned"
         app:layout_constraintBottom_toBottomOf="parent"

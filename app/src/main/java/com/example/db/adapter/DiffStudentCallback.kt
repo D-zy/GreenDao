@@ -1,43 +1,38 @@
-package com.example.db.adapter;
+package com.example.db.adapter
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
-import com.example.db.entity.Student;
+import androidx.recyclerview.widget.DiffUtil
+import com.example.db.entity.Student
 
 /**
  * Create DiffCallback
  */
-public class DiffStudentCallback extends DiffUtil.ItemCallback<Student> {
-
+class DiffStudentCallback : DiffUtil.ItemCallback<Student>() {
     /**
      * Determine if it is the same item
-     * <p>
+     *
+     *
      * 判断是否是同一个item
      *
      * @param oldItem New data
      * @param newItem old Data
      * @return
      */
-    @Override
-    public boolean areItemsTheSame(@NonNull Student oldItem, @NonNull Student newItem) {
-        return oldItem.getId().equals(newItem.getId());
+    override fun areItemsTheSame(oldItem: Student, newItem: Student): Boolean {
+        return oldItem.getId() == newItem.getId()
     }
 
     /**
      * When it is the same item, judge whether the content has changed.
-     * <p>
+     *
+     *
      * 当是同一个item时，再判断内容是否发生改变
      *
      * @param oldItem New data
      * @param newItem old Data
      * @return
      */
-    @Override
-    public boolean areContentsTheSame(@NonNull Student oldItem, @NonNull Student newItem) {
-        return oldItem.getId().equals(newItem.getId())
-                && oldItem.getAge().equals(newItem.getAge())
-                && oldItem.getName().equals(newItem.getName())
-                && oldItem.getScore().equals(newItem.getScore());
+    override fun areContentsTheSame(oldItem: Student, newItem: Student): Boolean {
+        return oldItem.getId() == newItem.getId() && oldItem.getAge() == newItem.getAge() && oldItem.getName() == newItem.getName() && oldItem.getScore() == newItem.getScore()
     }
 
     /**
@@ -53,8 +48,7 @@ public class DiffStudentCallback extends DiffUtil.ItemCallback<Student> {
      * @param newItem New data
      * @return Payload info. if return null, the entire item will be refreshed.
      */
-    @Override
-    public Object getChangePayload(@NonNull Student oldItem, @NonNull Student newItem) {
-        return null;
+    override fun getChangePayload(oldItem: Student, newItem: Student): Any? {
+        return null
     }
 }

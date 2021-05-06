@@ -1,124 +1,97 @@
-/*
-******************************* Copyright (c)*********************************\
-**
-**                 (c) Copyright 2015, 蒋朋, china, qd. sd
-**                          All Rights Reserved
-**
-**                           By()
-**                         
-**-----------------------------------版本信息------------------------------------
-** 版    本: V0.1
-**
-**------------------------------------------------------------------------------
-********************************End of Head************************************\
-*/
+package com.example.db.db
 
-package com.example.db.db;
-
-
-import org.greenrobot.greendao.AbstractDao;
-import org.greenrobot.greendao.query.QueryBuilder;
-
-import java.util.List;
+import org.greenrobot.greendao.AbstractDao
+import org.greenrobot.greendao.query.QueryBuilder
 
 /**
  * 文 件 名: BaseDbHelper
  * 说   明:  greedDAO 基础辅助类
  */
-public class BaseDbHelper<T, K> {
-    private AbstractDao<T, K> mDao;
+open class BaseDbHelper<T, K>(dao: AbstractDao<T, K>) {
+    private val mDao: AbstractDao<T, K> = dao
 
-
-    public BaseDbHelper(AbstractDao dao) {
-        mDao = dao;
+    fun save(item: T) {
+        mDao.insert(item)
     }
 
-
-    public void save(T item) {
-        mDao.insert(item);
+    fun save(vararg items: T) {
+        mDao.insertInTx(*items)
     }
 
-    public void save(T... items) {
-        mDao.insertInTx(items);
+    fun save(items: MutableList<T>) {
+        mDao.insertInTx(items)
     }
 
-    public void save(List<T> items) {
-        mDao.insertInTx(items);
+    fun saveOrUpdate(item: T) {
+        mDao.insertOrReplace(item)
     }
 
-    public void saveOrUpdate(T item) {
-        mDao.insertOrReplace(item);
+    fun saveOrUpdate(vararg items: T) {
+        mDao.insertOrReplaceInTx(*items)
     }
 
-    public void saveOrUpdate(T... items) {
-        mDao.insertOrReplaceInTx(items);
+    fun saveOrUpdate(items: MutableList<T>) {
+        mDao.insertOrReplaceInTx(items)
     }
 
-    public void saveOrUpdate(List<T> items) {
-        mDao.insertOrReplaceInTx(items);
+    fun deleteByKey(key: K) {
+        mDao.deleteByKey(key)
     }
 
-    public void deleteByKey(K key) {
-        mDao.deleteByKey(key);
+    fun delete(item: T) {
+        mDao.delete(item)
     }
 
-    public void delete(T item) {
-        mDao.delete(item);
+    fun delete(vararg items: T) {
+        mDao.deleteInTx(*items)
     }
 
-    public void delete(T... items) {
-        mDao.deleteInTx(items);
+    fun delete(items: MutableList<T>) {
+        mDao.deleteInTx(items)
     }
 
-    public void delete(List<T> items) {
-        mDao.deleteInTx(items);
+    fun deleteAll() {
+        mDao.deleteAll()
     }
 
-    public void deleteAll() {
-        mDao.deleteAll();
+    fun update(item: T) {
+        mDao.update(item)
     }
 
-
-    public void update(T item) {
-        mDao.update(item);
+    fun update(vararg items: T) {
+        mDao.updateInTx(*items)
     }
 
-    public void update(T... items) {
-        mDao.updateInTx(items);
+    fun update(items: MutableList<T>) {
+        mDao.updateInTx(items)
     }
 
-    public void update(List<T> items) {
-        mDao.updateInTx(items);
+    fun query(key: K): T {
+        return mDao.load(key)
     }
 
-    public  T query(K key) {
-        return  mDao.load(key);
+    fun queryAll(): MutableList<T> {
+        return mDao.loadAll()
     }
 
-    public List<T> queryAll() {
-        return mDao.loadAll();
+    fun query(where: String?, vararg params: String?): MutableList<T> {
+        return mDao.queryRaw(where, *params)
     }
 
-    public List<T> query(String where, String... params) {
-
-        return mDao.queryRaw(where, params);
+    fun queryBuilder(): QueryBuilder<T> {
+        return mDao.queryBuilder()
     }
 
-    public QueryBuilder<T> queryBuilder() {
-
-        return mDao.queryBuilder();
+    fun count(): Long {
+        return mDao.count()
     }
 
-    public long count() {
-        return mDao.count();
+    fun refresh(item: T) {
+        mDao.refresh(item)
     }
 
-    public void refresh(T item) {
-        mDao.refresh(item);
-
+    fun detach(item: T) {
+        mDao.detach(item)
     }
 
-    public void detach(T item) {
-        mDao.detach(item);
-    }
 }

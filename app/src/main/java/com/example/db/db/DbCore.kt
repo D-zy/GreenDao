@@ -1,73 +1,50 @@
-/*
-******************************* Copyright (c)*********************************\
-**
-**                 (c) Copyright 2015, 蒋朋, china, qd. sd
-**                          All Rights Reserved
-**
-**                           By(青岛)
-**                         
-**-----------------------------------版本信息------------------------------------
-** 版    本: V0.1
-**
-**------------------------------------------------------------------------------
-********************************End of Head************************************\
-*/
+package com.example.db.db
 
-package com.example.db.db;
-
-import android.content.Context;
-
-import com.example.db.dao.DaoMaster;
-import com.example.db.dao.DaoSession;
-
-import org.greenrobot.greendao.query.QueryBuilder;
+import android.annotation.SuppressLint
+import android.content.Context
+import com.example.db.app.DaoApplication
+import com.example.db.dao.DaoMaster
+import com.example.db.dao.DaoMaster.OpenHelper
+import com.example.db.dao.DaoSession
+import org.greenrobot.greendao.query.QueryBuilder
 
 /**
  * 文 件 名: DbCore
  * 说   明: 核心辅助类，用于获取DaoMaster和DaoSession
  * 参   考：http://blog.inet198.cn/?sbsujjbcy/article/details/48156683
  */
-public class DbCore {
-    private static final String DEFAULT_DB_NAME = "green-dao3.db";
-    private static DaoMaster daoMaster;
-    private static DaoSession daoSession;
+object DbCore {
+    private const val DEFAULT_DB_NAME = "green-dao3.db"
+    private var daoMaster: DaoMaster? = null
+    private var daoSession: DaoSession? = null
+    private var DB_NAME: String? = null
 
-    private static Context mContext;
-    private static String DB_NAME;
-
-    public static void init(Context context) {
-        init(context, DEFAULT_DB_NAME);
+    fun init(dbName: String? = DEFAULT_DB_NAME) {
+        DB_NAME = dbName
     }
 
-    public static void init(Context context, String dbName) {
-        if (context == null) {
-            throw new IllegalArgumentException("context can't be null");
-        }
-        mContext = context.getApplicationContext();
-        DB_NAME = dbName;
-    }
-
-    public static DaoMaster getDaoMaster() {
+    private fun getDaoMaster(): DaoMaster {
         if (daoMaster == null) {
             //此处不可用 DaoMaster.DevOpenHelper, 那是开发辅助类，我们要自定义一个，方便升级
-            DaoMaster.OpenHelper helper = new MyOpenHelper(mContext, DB_NAME);
-            daoMaster = new DaoMaster(helper.getEncryptedReadableDb("password"));
+            val helper: OpenHelper = MyOpenHelper(DaoApplication._context, DB_NAME)
+            daoMaster = DaoMaster(helper.getEncryptedReadableDb("password"))
         }
-        return daoMaster;
+        return daoMaster!!
     }
 
-    public static DaoSession getDaoSession() {
+    fun getDaoSession(): DaoSession {
         if (daoSession == null) {
             if (daoMaster == null) {
-                daoMaster = getDaoMaster();
+                daoMaster = getDaoMaster()
             }
-            daoSession = daoMaster.newSession();
+            daoSession = daoMaster!!.newSession()
         }
-        return daoSession;
+        return daoSession!!
     }
 
-    public static void enableQueryBuilderLog(){
-        QueryBuilder.LOG_SQL = true;
-        QueryBuilder.LOG_VALUES = true;
+    fun enableQueryBuilderLog() {
+        QueryBuilder.LOG_SQL = true
+        QueryBuilder.LOG_VALUES = true
     }
+
 }
