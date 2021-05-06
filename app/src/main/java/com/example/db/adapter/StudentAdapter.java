@@ -22,7 +22,7 @@ public class StudentAdapter extends BaseQuickAdapter<Student, BaseViewHolder> im
         helper.setText(R.id.tv_id, String.valueOf(item.id))
                 .setText(R.id.tv_name, item.name)
                 .setText(R.id.tv_age, String.valueOf(item.age))
-                .setText(R.id.tv_score, item.score);
+                .setText(R.id.tv_score, String.valueOf(item.score));
         if (item.name.startsWith("ZH")) {
             helper.setTextColor(R.id.tv_name, Color.GRAY);
         } else {

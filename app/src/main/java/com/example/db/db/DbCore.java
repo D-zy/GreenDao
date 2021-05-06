@@ -26,12 +26,6 @@ import org.greenrobot.greendao.query.QueryBuilder;
  * 文 件 名: DbCore
  * 说   明: 核心辅助类，用于获取DaoMaster和DaoSession
  * 参   考：http://blog.inet198.cn/?sbsujjbcy/article/details/48156683
- * 创 建 人: 蒋朋
- * 创建日期: 16-7-19 10:12
- * 邮   箱: jp19891017@gmail.com
- * 博   客: http://jp1017.github.io
- * 修改时间：
- * 修改备注：
  */
 public class DbCore {
     private static final String DEFAULT_DB_NAME = "green-dao3.db";

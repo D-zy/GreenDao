@@ -22,12 +22,6 @@ import org.greenrobot.greendao.AbstractDao;
 /**
  * 文 件 名: StudentHelper
  * 说   明: 具体表的实现类
- * 创 建 人: 蒋朋
- * 创建日期: 16-7-19 10:31
- * 邮   箱: jp19891017@gmail.com
- * 博   客: http://jp1017.github.io
- * 修改时间：
- * 修改备注：
  */
 public class StudentHelper extends BaseDbHelper<Student, Long> {
 

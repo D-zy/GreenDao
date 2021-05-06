@@ -4,12 +4,10 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -34,16 +32,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnItemChildClickListener {
-
 
     private RecyclerView mRvMain;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private List<Student> dbStudents;
-
     private StudentHelper mHelper;
-
     private Random mRandom;
     private StudentAdapter studentAdapter;
     private List<Student> mStudents;
@@ -52,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mRvMain = (RecyclerView) findViewById(R.id.rv_main);
+        mRvMain = findViewById(R.id.rv_main);
         mSwipeRefreshLayout = findViewById(R.id.swipeLayout);
         findViewById(R.id.bt_insert).setOnClickListener(this);
         findViewById(R.id.bt_delete).setOnClickListener(this);
@@ -97,12 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initRefreshLayout() {
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refresh();
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(this::refresh);
     }
 
     /**
@@ -135,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 stu.id = endId + 1;
                 stu.name = "ZH_" + (endId + 1);
                 stu.age = mRandom.nextInt(60);
-                stu.score = mRandom.nextInt(100) + "";
+                stu.score = mRandom.nextInt(100);
                 studentAdapter.addData(stu);
                 //保存到数据库s
                 mHelper.save(stu);
@@ -162,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .build();
                 List<Student> dbStudents3 = query.list();
                 for (Student dbStudent : dbStudents3) {
-                    dbStudent.setName("New_" + dbStudent.id);
+                    dbStudent.setName("DN_" + dbStudent.id);
                 }
                 mHelper.update(dbStudents3);
                 refresh();
@@ -190,8 +179,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      * 防多次点击的吐司
-     *
-     * @param msg
      */
     @SuppressLint("ShowToast")
     public void showToast(String msg) {

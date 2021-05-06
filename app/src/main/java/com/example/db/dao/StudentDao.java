@@ -27,7 +27,7 @@ public class StudentDao extends AbstractDao<Student, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Name = new Property(1, String.class, "name", false, "NAME");
         public final static Property Age = new Property(2, Integer.class, "age", false, "AGE");
-        public final static Property Score = new Property(3, String.class, "score", false, "SCORE");
+        public final static Property Score = new Property(3, Integer.class, "score", false, "SCORE");
     }
 
 
@@ -46,7 +46,7 @@ public class StudentDao extends AbstractDao<Student, Long> {
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"NAME\" TEXT," + // 1: name
                 "\"AGE\" INTEGER," + // 2: age
-                "\"SCORE\" TEXT);"); // 3: score
+                "\"SCORE\" INTEGER);"); // 3: score
     }
 
     /** Drops the underlying database table. */
@@ -74,9 +74,9 @@ public class StudentDao extends AbstractDao<Student, Long> {
             stmt.bindLong(3, age);
         }
  
-        String score = entity.getScore();
+        Integer score = entity.getScore();
         if (score != null) {
-            stmt.bindString(4, score);
+            stmt.bindLong(4, score);
         }
     }
 
@@ -99,9 +99,9 @@ public class StudentDao extends AbstractDao<Student, Long> {
             stmt.bindLong(3, age);
         }
  
-        String score = entity.getScore();
+        Integer score = entity.getScore();
         if (score != null) {
-            stmt.bindString(4, score);
+            stmt.bindLong(4, score);
         }
     }
 
@@ -116,7 +116,7 @@ public class StudentDao extends AbstractDao<Student, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
             cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2), // age
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // score
+            cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3) // score
         );
         return entity;
     }
@@ -126,7 +126,7 @@ public class StudentDao extends AbstractDao<Student, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setAge(cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2));
-        entity.setScore(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setScore(cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3));
      }
     
     @Override

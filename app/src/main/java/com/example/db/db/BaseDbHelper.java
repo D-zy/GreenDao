@@ -24,12 +24,6 @@ import java.util.List;
 /**
  * 文 件 名: BaseDbHelper
  * 说   明:  greedDAO 基础辅助类
- * 创 建 人: 蒋朋
- * 创建日期: 16-7-19 10:19
- * 邮   箱: jp19891017@gmail.com
- * 博   客: http://jp1017.github.io
- * 修改时间：
- * 修改备注：
  */
 public class BaseDbHelper<T, K> {
     private AbstractDao<T, K> mDao;

@@ -53,14 +53,6 @@ import org.greenrobot.greendao.database.Database;
 
 /**
  * 文 件 名: MyOpenHelper
- * 创 建 人: 蒋朋
- * 创建日期: 16-10-11 08:28
- * 邮    箱: jp19891017@gmail.com
- * 博    客: https://jp1017.github.io/
- * 描    述:
- * 修 改 人:
- * 修改时间：
- * 修改备注：
  */
 
 public class MyOpenHelper extends DaoMaster.OpenHelper {

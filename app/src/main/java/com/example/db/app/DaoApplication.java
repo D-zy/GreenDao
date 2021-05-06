@@ -49,18 +49,6 @@ import com.example.db.BuildConfig;
 import com.example.db.db.DbCore;
 import com.socks.library.KLog;
 
-/**
- * 文 件 名: DaoApplication
- * 创 建 人: 蒋朋
- * 创建日期: 16-10-11 14:29
- * 邮    箱: jp19891017@gmail.com
- * 博    客: https://jp1017.github.io/
- * 描    述:
- * 修 改 人:
- * 修改时间：
- * 修改备注：
- */
-
 public class DaoApplication extends Application {
     @Override
     public void onCreate() {

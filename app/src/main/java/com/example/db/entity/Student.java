@@ -21,12 +21,6 @@ import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * 文 件 名: Student
- * 创 建 人: 蒋朋
- * 创建日期: 16-8-26 17:25
- * 描    述:
- * 修 改 人:
- * 修改时间：
- * 修改备注：
  */
 
 @Entity
@@ -36,9 +30,9 @@ public class Student {
     public Long id;
     public String name;
     public Integer age;
-    public String score;
-    @Generated(hash = 1760753087)
-    public Student(Long id, String name, Integer age, String score) {
+    public Integer score;
+    @Generated(hash = 2068284663)
+    public Student(Long id, String name, Integer age, Integer score) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -65,11 +59,12 @@ public class Student {
     public void setAge(Integer age) {
         this.age = age;
     }
-    public String getScore() {
+    public Integer getScore() {
         return this.score;
     }
-    public void setScore(String score) {
+    public void setScore(Integer score) {
         this.score = score;
     }
+
     
 }
