@@ -19,7 +19,8 @@ import com.example.db.db.StudentHelper
 import com.example.db.entity.Student
 import java.util.*
 
-class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, OnItemChildClickListener {
+class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener,
+    OnItemChildClickListener {
 
     private lateinit var dbStudents: List<Student>
     private lateinit var mHelper: StudentHelper
@@ -119,9 +120,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, 
                 //获取age大于20,小于30的数据, 修改名字
                 val queryBuilder = mHelper.queryBuilder()
                 val query = queryBuilder.where( /*StudentDao.Properties.Name.eq("一"),*/
-                        queryBuilder.and(StudentDao.Properties.Age.gt(20),
-                                StudentDao.Properties.Age.le(30)))
-                        .build()
+                    queryBuilder.and(
+                        StudentDao.Properties.Age.gt(20),
+                        StudentDao.Properties.Age.le(30)
+                    )
+                )
+                    .build()
                 val dbStudents3 = query.list()
                 for (dbStudent in dbStudents3) {
                     dbStudent.setName("DN_" + dbStudent.id)
@@ -130,18 +134,38 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, 
                 refresh()
             }
             R.id.bt_query -> {
+                //唯一查询
+//                val unique = mHelper.queryBuilder()
+//                    .where(StudentDao.Properties.Age.gt(0), StudentDao.Properties.Age.le(5)).limit(1)
+//                    .unique()?:return
+//
+//                showToast(unique.getName())
+
+                //嵌套查询
+                val qb = mHelper.queryBuilder()
+                qb.where(
+                    qb.or(
+                        StudentDao.Properties.Age.le(10),
+                        StudentDao.Properties.Age.gt(50),
+                        StudentDao.Properties.Score.gt(35)
+                    )
+                )
+                val list = qb.list()
+                studentAdapter.setDiffNewData(list)
+
                 //获取age大于30的数据
-                val query2 = mHelper.queryBuilder()
-                        .where(StudentDao.Properties.Age.ge(30))
-                        .build()
-                val dbStudents4 = query2.list()
-                studentAdapter.setDiffNewData(dbStudents4)
+//                val query2 = mHelper.queryBuilder()
+////                        .where(StudentDao.Properties.Age.ge(30),StudentDao.Properties.Score.gt(60))
+//                        .where(StudentDao.Properties.Age.gt(20), StudentDao.Properties.Age.le(30))
+//                        .build()
+//                val dbStudents4 = query2.list()
+//                studentAdapter.setDiffNewData(dbStudents4)
             }
             R.id.bt_deleteBatch -> {
                 //批量删除分数小于50分的数据
                 val studentDeleteQuery = mHelper.queryBuilder()
-                        .where(StudentDao.Properties.Score.lt(50))
-                        .buildDelete()
+                    .where(StudentDao.Properties.Score.lt(50))
+                    .buildDelete()
                 studentDeleteQuery.executeDeleteWithoutDetachingEntities()
                 refresh()
             }
